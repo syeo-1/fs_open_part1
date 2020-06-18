@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom'
 //
 //}
 
-const SelectedAnecdote = (props) => (
-  <p>{props.anecdote}</p>
+const SelectedAnecdote = ({anecdote}) => (
+  <p>{anecdote}</p>
 )
 
 const NextAnecdote = ({onClick, text}) => (
