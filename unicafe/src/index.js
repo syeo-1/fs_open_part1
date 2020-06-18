@@ -11,16 +11,21 @@ const Button = ({handleClick, text}) => (//good neutral bad for buttons
     </button>
 )
 
-const Statistics = ({good, neutral, bad, total, average, positivePercent}) => ( 
-  <div>
-    <p> good {good}</p>
-    <p> neutral {neutral}</p>
-    <p> bad {bad}</p>
-    <p> all {total}</p>
-    <p> average {average}</p>
-    <p> positive {positivePercent} %</p>
-  </div>
-)
+const Statistics = ({good, neutral, bad, total, average, positivePercent}) => {
+  if ((good + neutral + bad) === 0) {
+    return <div>No feedback given</div>
+  }
+  return (
+    <div>
+      <p> good {good}</p>
+      <p> neutral {neutral}</p>
+      <p> bad {bad}</p>
+      <p> all {total}</p>
+      <p> average {average}</p>
+      <p> positive {positivePercent} %</p>
+    </div>
+  )
+}
 
 const PositivePercent = (props) => (
   <p>{props.text} {props.number}%</p>
