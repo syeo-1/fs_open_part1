@@ -9,7 +9,11 @@ const SelectedAnecdote = ({anecdote}) => (
   <p>{anecdote}</p>
 )
 
-const NextAnecdote = ({onClick, text}) => (
+const VoteData = ({numVotes}) => (
+  <p>has {numVotes} votes</p>
+)
+
+const Button = ({onClick, text}) => (
   <button onClick={onClick}>
     {text}
   </button>
@@ -18,17 +22,23 @@ const NextAnecdote = ({onClick, text}) => (
 const App = (props) => {
   const getRandomVal = () => Math.floor(Math.random()*anecdotes.length)
   const nextAnecdote = () => setSelected(getRandomVal())
+  const castVote = (i) => { 
+    const copy = [...points]
+    copy[i] += 1
+    setPoints(copy)
+  } 
   
-  const randomVal = getRandomVal()//Math.floor(Math.random()*anecdotes.length)
+  const randomVal = getRandomVal()//must initialize func before usage!
   const [selected, setSelected] = useState(randomVal)
-
-
-
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
+  
 
   return (
     <div>
       <SelectedAnecdote anecdote={props.anecdotes[selected]}/>
-      <NextAnecdote onClick={nextAnecdote} text="next anecdote"/>
+      <VoteData numVotes={points[selected]}/>
+      <Button onClick={() => castVote(selected)} text="vote"/>
+      <Button onClick={nextAnecdote} text="next anecdote"/>
     </div>
   )
 }
