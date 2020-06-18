@@ -12,7 +12,11 @@ const Button = ({handleClick, text}) => (//good neutral bad for buttons
 )
 
 const Statistic = ({text, value}) => (
-  <p>{text} {value}</p>
+  <tr>
+    <td>{text}</td> 
+    <td>{value}</td>
+  </tr>
+
 )
 
 const Statistics = ({good, neutral, bad, total, average, positivePercent}) => {
@@ -20,20 +24,20 @@ const Statistics = ({good, neutral, bad, total, average, positivePercent}) => {
     return <div>No feedback given</div>
   }
   return (
-    <div>
-      <Statistic text="good" value={good} />
-      <Statistic text="neutral" value={neutral} />
-      <Statistic text="bad" value={bad} />
-      <Statistic text="total" value={total}/>
-      <Statistic text="average" value={average} />
-      <Statistic text="Positive" value={positivePercent + " %"} />
-    </div>
+    <table>
+      <tbody>
+        <Statistic text="good" value={good} />
+        <Statistic text="neutral" value={neutral} />
+        <Statistic text="bad" value={bad} />
+        <Statistic text="total" value={total}/>
+        <Statistic text="average" value={average} />
+        <Statistic text="Positive" value={positivePercent + " %"} />
+      </tbody>
+    </table>
   )
 }
 
-const PositivePercent = (props) => (
-  <p>{props.text} {props.number}%</p>
-)
+
 
 const App = () => {
   const giveFeedbackText = "give feedback"
