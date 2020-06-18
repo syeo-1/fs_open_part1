@@ -5,6 +5,16 @@ import ReactDOM from 'react-dom'
 //
 //}
 
+const SelectedAnecdote = (props) => (
+  <p>{props.anecdote}</p>
+)
+
+const NextAnecdote = ({onClick, text}) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+
 const App = (props) => {
   const getRandomVal = () => Math.floor(Math.random()*anecdotes.length)
   const nextAnecdote = () => setSelected(getRandomVal())
@@ -17,9 +27,8 @@ const App = (props) => {
 
   return (
     <div>
-      {props.anecdotes[selected]}
-      <br></br>
-      <button onClick={nextAnecdote}>next anecdote</button>
+      <SelectedAnecdote anecdote={props.anecdotes[selected]}/>
+      <NextAnecdote onClick={nextAnecdote} text="next anecdote"/>
     </div>
   )
 }
