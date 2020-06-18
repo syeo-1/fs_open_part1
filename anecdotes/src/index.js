@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom'
 //
 //}
 
+const Header = ({text}) => <h1>{text}</h1>
+
 const SelectedAnecdote = ({anecdote}) => (
   <p>{anecdote}</p>
 )
@@ -19,6 +21,13 @@ const Button = ({onClick, text}) => (
   </button>
 )
 
+const FavAnecdote = ({data}) => (
+  <div>
+    <p>{data[0]}</p>
+    <p>{data[1]}</p>
+  </div>
+) 
+
 const App = (props) => {
   const getRandomVal = () => Math.floor(Math.random()*anecdotes.length)
   const nextAnecdote = () => setSelected(getRandomVal())
@@ -31,14 +40,28 @@ const App = (props) => {
   const randomVal = getRandomVal()//must initialize func before usage!
   const [selected, setSelected] = useState(randomVal)
   const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
+
+  function getFavAnecdote() {
+    const maxIndex = getMaxIndex()
+    return [anecdotes[maxIndex], points[maxIndex]]
+  }
+  function getMaxIndex() {
+    const maxVotes = Math.max(...points)
+    for (let i = 0 ; i < points.length ; i++) {
+      if (points[i] === maxVotes) return i
+    }
+  }
   
 
   return (
     <div>
+      <Header text="Anecdote of the day"/>
       <SelectedAnecdote anecdote={props.anecdotes[selected]}/>
       <VoteData numVotes={points[selected]}/>
       <Button onClick={() => castVote(selected)} text="vote"/>
       <Button onClick={nextAnecdote} text="next anecdote"/>
+      <Header text="Anecdote with most votes" />
+      <FavAnecdote data={getFavAnecdote()} />
     </div>
   )
 }
